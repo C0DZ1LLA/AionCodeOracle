@@ -75,10 +75,36 @@
             animation: textGlow 2s infinite alternate;
         }
 
-        .text p {
-            font-size: 1.2em;
-            margin-top: 10px;
-            color: #aaa;
+        .details {
+            margin-top: 20px;
+            text-align: left;
+            font-size: 1.1em;
+            line-height: 1.5;
+            color: #ccc;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            max-width: 600px;
+            margin: 20px auto;
+        }
+
+        .details ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .details ul li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .details ul li::before {
+            content: "★";
+            position: absolute;
+            left: 0;
+            color: #ff00ff;
         }
 
         @keyframes textGlow {
@@ -96,8 +122,9 @@
                 font-size: 2em;
             }
 
-            .text p {
+            .details {
                 font-size: 1em;
+                padding: 15px;
             }
         }
 
@@ -254,8 +281,18 @@
             <div class="sphere"></div>
             <div class="text">
                 <h1>Site Under Construction</h1>
-                <p>We are working hard to bring you a new and exciting experience. Stay tuned!</p>
             </div>
+        </div>
+        <div class="details">
+            <h2>What's Coming:</h2>
+            <ul>
+                <li>Enhanced AI-driven interfaces</li>
+                <li>Real-time data analytics and visualization</li>
+                <li>Advanced user personalization</li>
+                <li>Seamless multi-device integration</li>
+                <li>Improved security features</li>
+                <li>New interactive tutorials and guides</li>
+            </ul>
         </div>
     </div>
     <div class="ai-container">
