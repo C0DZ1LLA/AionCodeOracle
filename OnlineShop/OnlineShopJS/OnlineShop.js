@@ -36,6 +36,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
+    let currentLanguage = 'el';
+
     function translatePage(language) {
         document.querySelectorAll('[data-key]').forEach(element => {
             const key = element.getAttribute('data-key');
@@ -70,6 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     window.switchLanguage = function(language) {
+        currentLanguage = language;
         translatePage(language);
     };
 
@@ -105,7 +108,6 @@ document.addEventListener("DOMContentLoaded", () => {
         { id: 29, name: { en: 'Futuristic Camera', el: 'Φουτουριστική Κάμερα' }, description: { en: 'Capture moments with AI-enhanced clarity.', el: 'Καταγράψτε στιγμές με ενισχυμένη καθαρότητα από AI.' }, imageUrl: 'https://via.placeholder.com/200', price: 799.99, category: 'Electronics' },
         { id: 30, name: { en: 'Smart Speaker', el: 'Έξυπνο Ηχείο' }, description: { en: 'Voice-controlled speaker with high-fidelity sound.', el: 'Ηχείο με φωνητικό έλεγχο και υψηλή πιστότητα ήχου.' }, imageUrl: 'https://via.placeholder.com/200', price: 199.99, category: 'Electronics' }
     ];
-    
 
     function createProductElement(product, language) {
         return `
@@ -162,13 +164,13 @@ document.addEventListener("DOMContentLoaded", () => {
             const cartItem = document.createElement('div');
             cartItem.className = 'cart-item';
             cartItem.innerHTML = `
-                <img src="${item.imageUrl}" alt="${item.name}">
+                <img src="${item.imageUrl}" alt="${item.name[currentLanguage]}">
                 <div class="cart-item-details">
-                    <h3>${item.name}</h3>
+                    <h3>${item.name[currentLanguage]}</h3>
                     <p>Price: $${item.price.toFixed(2)}</p>
                     <p>Quantity: ${item.quantity}</p>
                     <p>Total: $${(item.price * item.quantity).toFixed(2)}</p>
-                    <button onclick="removeFromCart(${index})" data-key="remove">${translations['el']['remove']}</button>
+                    <button onclick="removeFromCart(${index})" data-key="remove">${translations[currentLanguage]['remove']}</button>
                 </div>
             `;
             cartItems.appendChild(cartItem);
@@ -229,8 +231,8 @@ document.addEventListener("DOMContentLoaded", () => {
     window.showProductModal = function(productId) {
         currentProduct = products.find(p => p.id === productId);
         modalImage.src = currentProduct.imageUrl;
-        modalName.textContent = currentProduct.name;
-        modalDescription.textContent = currentProduct.description;
+        modalName.textContent = currentProduct.name[currentLanguage];
+        modalDescription.textContent = currentProduct.description[currentLanguage];
         modalPrice.textContent = `$${currentProduct.price.toFixed(2)}`;
         modal.style.display = 'flex';
     }
@@ -248,7 +250,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (cart.length === 0) {
             alert('Το καλάθι σας είναι άδειο!');
         } else {
-            let cartItems = cart.map(item => item.name).join(', ');
+            let cartItems = cart.map(item => item.name[currentLanguage]).join(', ');
             alert(`Ολοκλήρωση αγοράς των εξής αντικειμένων: ${cartItems}\nΣύνολο: €${totalPrice.toFixed(2)}`);
             cart = [];
             totalPrice = 0;
